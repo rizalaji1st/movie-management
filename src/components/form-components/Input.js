@@ -5,7 +5,7 @@ const Input  = (props) => {
                 {props.title}
             </label>
             <input 
-                className="form-control" 
+                className={`form-control ${props.className}`} 
                 type={props.type} 
                 id={props.name} 
                 name={props.name}
@@ -13,6 +13,7 @@ const Input  = (props) => {
                 onChange={props.handleChange}
                 placeholder={props.placeholder}
                 />
+                <div className={props.errorDiv}>{props.errorMsg}</div>
         </div>
     );
 }
