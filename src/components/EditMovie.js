@@ -162,7 +162,18 @@ export default class EditMovie extends Component{
                 {
                     label: 'Yes',
                     onClick: () => {
-                        fetch("http://localhost:4000/v1/admin/deletemovie/"+this.state.movie.id, {method: "GET"})
+                        const myHeaders = new Headers();
+                        myHeaders.append("Content-Type", "application/json");
+                        myHeaders.append("Authorization", "Bearer "+this.props.jwt);
+                        const requestOptions = {
+                            method: 'GET',
+                            headers: myHeaders,
+                        }
+
+                        fetch(
+                            "http://localhost:4000/v1/admin/deletemovie/" + this.state.movie.id, 
+                            requestOptions
+                        )
                             .then(response => response.json)
                             .then(data => {
                                 if(data.error){
