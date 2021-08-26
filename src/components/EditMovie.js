@@ -104,6 +104,12 @@ export default class EditMovie extends Component{
     }
 
     componentDidMount(){
+        if (this.props.jwt === ""){
+            this.props.history.push({
+                pathname: "/login",
+            });
+            return;
+        }
         const id = this.props.match.params.id;
         if(id>0){
             fetch("http://localhost:4000/v1/movie/"+id)
