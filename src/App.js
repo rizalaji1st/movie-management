@@ -29,7 +29,7 @@ export default class App extends Component{
   
   render(){
     let loginLink;
-    if(this.state.jwt=== ""){
+    if(this.state.jwt === ""){
       loginLink = <Link to="/login">Login</Link>
     } else{
       loginLink = <Link to="/logout" onClick={this.logout}>Logout</Link>
@@ -61,7 +61,7 @@ export default class App extends Component{
                       <li className="list-group-item">
                         <Link to="/genres">Genres</Link>
                       </li>
-                      {this.state.jwt === "" && (
+                      {this.state.jwt !== "" && (
                         <Fragment>
                           <li className="list-group-item">
                             <Link to="/admin/movie/0">Add Movie</Link>
@@ -72,6 +72,9 @@ export default class App extends Component{
                         </Fragment>
                       )}
                     </ul>
+                    <pre>
+                      {JSON.stringify(this.state, null, 3)}
+                    </pre>
                   </nav>
               </div>
               <div className="col-md-10">
@@ -90,7 +93,9 @@ export default class App extends Component{
                     <Genres/>
                   </Route>
   
-                  <Route path="/admin/movie/:id" component={EditMovie}/>
+                  <Route path="/admin/movie/:id" component={(props) => (
+                    <EditMovie {...props} jwt={this.state.jwt} />)}
+                  />
   
                   <Route path="/admin">
                     <Admin />
